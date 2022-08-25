@@ -1,0 +1,21 @@
+version: '3'
+
+x-common-variables: &common-variables
+  DEBUG: 1
+  ENVIRONMENT: DEVELOPMENT
+
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - MODE=DEVELOPMENT
+    container_name: app-lemonhive
+    volumes:
+      - ./src/:/usr/code/src/
+    environment: *common-variables
+    env_file: .env
+    ports:
+      - 8800:8000

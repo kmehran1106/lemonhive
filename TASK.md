@@ -13,7 +13,7 @@ You are not limited to using only these packages. You are free to install additi
 
 ## Scope
 
-For this assessment we want you to create a simple upload/download service that provides a single endpoint, `/config` that accepts `GET` and `POST` requests. 
+For this assessment we want you to create a simple upload/download service that provides a single endpoint, `/config` that accepts `GET` and `POST` requests.
 
 The expected behaviour of the endpoints are as follows:
 
@@ -37,7 +37,7 @@ These outputs should be stored in a publicly available GitHub repository.
 * The web service must be written using `flask`
 * The web service must run locally and must accept requests sent via `curl` or Postman to `localhost`
 * The web service must accept JSON data (e.g. `data:application/json`), not file data
-* The web service must return a 400 code if the `POST` request JSON does not match the schema 
+* The web service must return a 400 code if the `POST` request JSON does not match the schema
 * The web service must return a 404 code if the `GET` request cannot find the file in cloud storage
 * The test suite must be written using `pytest`
 * The test suite must pass without any additional action from the user beyond initialising the virtual environment
