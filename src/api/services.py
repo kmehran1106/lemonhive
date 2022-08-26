@@ -3,12 +3,15 @@ from typing import Tuple, Dict
 from marshmallow import ValidationError
 
 from .schemas import data_schema
+from .gcp_storage import gcp_read_file_as_json, gcp_upload_json_as_file
+from .utils import APIException, ErrorCode
 
 
 def get_json_data() -> Tuple[Dict, int]:
-    # TODO: IMPLEMENT GCP STORAGE FUNCTION HERE
-
-    return dict(), 200
+    json_data = gcp_read_file_as_json()
+    if not json_data:
+        raise APIException(message="Not Found!", status_code=404, error_code=ErrorCode.NOT_FOUND)
+    return json_data, 200
 
 
 def update_json_data(json_data: dict) -> Tuple[Dict, int]:
@@ -20,6 +23,6 @@ def update_json_data(json_data: dict) -> Tuple[Dict, int]:
     except ValidationError as err:
         return err.messages, 400
 
-    # TODO: IMPLEMENT GCP STORAGE FUNCTION HERE
+    gcp_upload_json_as_file(json_data=validated_data)
 
     return validated_data, 200
