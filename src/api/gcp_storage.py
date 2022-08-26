@@ -1,14 +1,16 @@
 import json
 from typing import Dict, Optional
 
-from decouple import config
+from dotenv import dotenv_values
 from google.cloud import storage
 from google.oauth2 import service_account
 
 from .utils import APIException, ErrorCode
 
-GCP_PROJECT_ID = config("GCP_PROJECT_ID", default="")
-GCP_PRIVATE_KEY_ID = config("GCP_PRIVATE_KEY_ID", default="")
+config = dotenv_values(".env")
+
+GCP_PROJECT_ID = config.get("GCP_PROJECT_ID", "")
+GCP_PRIVATE_KEY_ID = config.get("GCP_PRIVATE_KEY_ID", "")
 
 STORAGE_CLIENT = None
 

@@ -1,11 +1,13 @@
 from flask import Flask
 from flask_marshmallow import Marshmallow
-from decouple import config
+from dotenv import dotenv_values
 
 from api.controllers import api_blueprint
 
-DEBUG = bool(int(config("DEBUG", default="1")))
-ENVIRONMENT = config("ENVIRONMENT", default="DEVELOPMENT")
+config = dotenv_values(".env")
+
+DEBUG = bool(int(config.get("DEBUG", "1")))
+ENVIRONMENT = config.get("ENVIRONMENT", "DEVELOPMENT")
 
 app = Flask(__name__)
 ma = Marshmallow(app)

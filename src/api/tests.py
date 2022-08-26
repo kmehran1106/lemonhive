@@ -14,7 +14,7 @@ def test_get_json_data_success(mocker):
         "address": "Dhaka",
         "creditScore": 100,
     }
-    mocker.patch("api.services.read_file_as_json", return_value=data)
+    mocker.patch("api.services.gcp_read_file_as_json", return_value=data)
 
     response_data, http_code = get_json_data()
     assert response_data == data
@@ -22,14 +22,14 @@ def test_get_json_data_success(mocker):
 
 
 def test_get_json_data_failure(mocker):
-    with mock.patch("api.services.read_file_as_json", side_effect=APIException("mocked error")):
+    with mock.patch("api.services.gcp_read_file_as_json", side_effect=APIException("mocked error")):
         with pytest.raises(Exception) as excinfo:
             get_json_data()
         assert excinfo.value.message == "mocked error"
 
 
 def test_get_json_data_not_found(mocker):
-    mocker.patch("api.services.read_file_as_json", return_value=None)
+    mocker.patch("api.services.gcp_read_file_as_json", return_value=None)
     with pytest.raises(Exception) as excinfo:
         get_json_data()
 
@@ -37,7 +37,7 @@ def test_get_json_data_not_found(mocker):
 
 
 def test_update_json_data_success(mocker):
-    mocker.patch("api.services.upload_json_as_file", return_value=True)
+    mocker.patch("api.services.gcp_upload_json_as_file", return_value=True)
     request_data = {
         "firstName": "Mehran",
         "secondName": "Kader",
@@ -58,7 +58,7 @@ def test_update_json_data_failure(mocker):
         "address": "Dhaka",
         "creditScore": 100,
     }
-    with mock.patch("api.services.upload_json_as_file", side_effect=APIException("mocked error")):
+    with mock.patch("api.services.gcp_upload_json_as_file", side_effect=APIException("mocked error")):
         with pytest.raises(Exception) as excinfo:
             update_json_data(request_data)
         assert excinfo.value.message == "mocked error"
